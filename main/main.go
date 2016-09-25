@@ -15,6 +15,6 @@ func main() {
 	http.HandleFunc("/hello/", hello.LoadHello)
 	http.HandleFunc("/histogram/", hist.LoadHist)
 
-	// Using port 1010 as 10 is my lucky number :)
+	// Serving on port 1010 as 10 is my lucky number :)
 	http.ListenAndServe(":1010", nil)
 }

@@ -3,8 +3,8 @@ package home
 
 import "net/http"
 
-// Used when the user first loads the root page of the web application.
-// Writes out a message to the user to try a different path.
+// LoadHome is used when the user first loads the root endpoint of the web application.
+// Writes out a response to the user to try a different path.
 func LoadHome(w http.ResponseWriter, req *http.Request) {
 	w.Write([]byte("Try /hello/:name"))
 }

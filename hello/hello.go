@@ -1,4 +1,4 @@
-// Contains everything associated with the /hello/ directory of the Web App
+// Package hello contains everything associated with the exposed /hello/ endpoint of the Web App
 package hello
 
 import (
@@ -7,8 +7,8 @@ import (
 	"net/http"
 )
 
-// Used when the user first loads the /hello/ directory
-// Gets the name from the endpoint and responses with "Hello [name]"
+// LoadHello is used when the user first loads the /hello/ endpoint.
+// It gets the name from the endpoint and responds with "Hello [name]"
 // where [name] is the name sliced from the path
 func LoadHello(w http.ResponseWriter, req *http.Request) {
 	// Store the path without the initial "/"
