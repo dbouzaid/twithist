@@ -4,13 +4,13 @@ import (
 	"testing"
 )
 
+// Tests if the GetSlicedPathAt method returns the correct result based on which index it is given
 func TestGetSlicedPathAt(t *testing.T) {
 	path := "/home/hello1//histo gram/"
 	pathSliceOne := GetSlicedPathAt(0, path[1:])
 	pathSliceTwo := GetSlicedPathAt(1, path[1:])
 	pathSliceThree := GetSlicedPathAt(2, path[1:])
 	pathSliceFour := GetSlicedPathAt(3, path[1:])
-
 
 	if pathSliceOne != "home" {
 		t.Errorf("GetSlicedPathAt returned wrong value: got %v wanted %v", pathSliceOne, "home")

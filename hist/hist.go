@@ -1,4 +1,4 @@
-// Packed hit contains everything associated with the histogram endpoint
+// Package hist contains everything associated with the histogram endpoint
 package hist
 
 import (
@@ -62,7 +62,6 @@ func LoadHist(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
-
 // getValidTweets is used to collect valid tweets from the given slice of tweets that were made within
 // the given time frame. The valid tweets are stored in a slice and returned
 func getValidTweets(tweets []anaconda.Tweet, timeFrame time.Time) (validTweets []anaconda.Tweet) {
@@ -94,7 +93,6 @@ func mapTweets(tweets []anaconda.Tweet, timeFrame time.Time) (tweetMap map[int]i
 	}
 	return
 }
-
 
 // initialiseMap is used to create a map with the keys needed for the JSON hash
 func initialiseMap() (m map[int]int) {
