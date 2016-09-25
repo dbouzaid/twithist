@@ -1,3 +1,4 @@
+// Packed hit contains everything associated with the histogram endpoint
 package hist
 
 import (
@@ -10,8 +11,6 @@ import (
 	"net/url"
 	"time"
 )
-
-// TODO: Comment Code
 
 // LoadHist is used when the user first loads the histogram endpoint of the web application.
 // Writes out a response to the user with a JSON hash of the number of tweets they made in the
@@ -64,7 +63,8 @@ func LoadHist(w http.ResponseWriter, req *http.Request) {
 }
 
 
-// getValidTweets is used to 
+// getValidTweets is used to collect valid tweets from the given slice of tweets that were made within
+// the given time frame. The valid tweets are stored in a slice and returned
 func getValidTweets(tweets []anaconda.Tweet, timeFrame time.Time) (validTweets []anaconda.Tweet) {
 	for _, tweet := range tweets {
 		tweetTime, err := tweet.CreatedAtTime()
@@ -77,13 +77,17 @@ func getValidTweets(tweets []anaconda.Tweet, timeFrame time.Time) (validTweets [
 	return
 }
 
+// mapTweets puts the slice of tweets into a map. The keys of the map correspond to how long ago
+// in hours that the tweet was made.
 func mapTweets(tweets []anaconda.Tweet, timeFrame time.Time) (tweetMap map[int]int) {
+	// Assign a blank map with
 	tweetMap = initialiseMap()
 	for _, tweet := range tweets {
 		tweetTime, err := tweet.CreatedAtTime()
 		if err != nil {
 			fmt.Println("Error2: ", err)
 		} else {
+			// Get how long ago the tweet was made in hours and use as the key
 			key := int(tweetTime.Sub(timeFrame).Hours())
 			tweetMap[key]++
 		}
@@ -91,6 +95,8 @@ func mapTweets(tweets []anaconda.Tweet, timeFrame time.Time) (tweetMap map[int]i
 	return
 }
 
+
+// initialiseMap is used to create a map with the keys needed for the JSON hash
 func initialiseMap() (m map[int]int) {
 	m = make(map[int]int)
 	for i := 0; i <= 24; i++ {
@@ -99,6 +105,8 @@ func initialiseMap() (m map[int]int) {
 	return
 }
 
+// createdQueries is used to create queries for the Twitter APi to retrieve the past 200 tweets made
+// by the specified user. Retweets and replies are excluded.
 func createQueries(user anaconda.User) (urlVals url.Values) {
 	urlVals = url.Values{}
 	urlVals.Add(constants.UserID, user.IdStr)
@@ -108,6 +116,7 @@ func createQueries(user anaconda.User) (urlVals url.Values) {
 	return
 }
 
+// Used to store the JSON hash with the root node of "tweets"
 type twitterHistogram struct {
 	TweetsTimeMap map[int]int `json:"tweets"`
 }

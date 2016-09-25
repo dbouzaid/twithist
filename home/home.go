@@ -1,4 +1,4 @@
-// Contains everything associated with the root directory of the Web App
+// Package home contains everything associated with the root endpoint of the Web App
 package home
 
 import "net/http"
