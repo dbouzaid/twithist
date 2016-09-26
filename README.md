@@ -13,7 +13,7 @@ Web App Task in Golang
 0. In your terminal, go to the go workspace on your computer
 0. Go to .../github.com/dbouzaid/twithist/main
 0. Run the command `go run main.go`
-0. Open a browser and use the URL: localhost:1010/ to load the root endpoint
+0. Open a browser and use the URL: [localhost:1010/](http://localhost:1010/) to load the root endpoint
 
 ## Tests
 
