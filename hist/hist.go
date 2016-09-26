@@ -97,7 +97,7 @@ func mapTweets(tweets []anaconda.Tweet, timeFrame time.Time) (tweetMap map[int]i
 // initialiseMap is used to create a map with the keys needed for the JSON hash
 func initialiseMap() (m map[int]int) {
 	m = make(map[int]int)
-	for i := 0; i <= 24; i++ {
+	for i := 0; i < 24; i++ {
 		m[i] = 0
 	}
 	return
