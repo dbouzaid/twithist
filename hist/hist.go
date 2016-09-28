@@ -125,14 +125,19 @@ type twitterHistogram struct {
 	TweetsTimeMap map[int]int `json:"tweets"`
 }
 
+// Used to assign keys to the TwitterKeys struct to be able to use the
+// Twitter API
 func setKeys() (keys constants.TwitterKeys) {
 	keys = constants.TwitterKeys{}
 
+	// Load the .env from the specified directory
+	// Directory starts at the root of the project
 	err := godotenv.Load("keys.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
+	// Assign the Twitter API tokens and keys to the TwitterKey struct
 	keys.AccessToken = os.Getenv("ACCESS_TOKEN")
 	keys.AccessTokenSecret = os.Getenv("ACCESS_TOKEN_SECRET")
 	keys.ConsumerKey = os.Getenv("CONSUMER_KEY")
