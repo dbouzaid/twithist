@@ -7,12 +7,12 @@ import (
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/dbouzaid/twithist/constants"
 	"github.com/dbouzaid/twithist/util"
-	"net/http"
-	"net/url"
-	"time"
 	"github.com/joho/godotenv"
 	"log"
+	"net/http"
+	"net/url"
 	"os"
+	"time"
 )
 
 // LoadHist is used when the user first loads the histogram endpoint of the web application.
