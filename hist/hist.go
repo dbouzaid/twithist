@@ -10,16 +10,22 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+	"github.com/joho/godotenv"
+	"log"
+	"os"
 )
 
 // LoadHist is used when the user first loads the histogram endpoint of the web application.
 // Writes out a response to the user with a JSON hash of the number of tweets they made in the
 // past 24 hours, all split up based on how many tweets per hour within the 24 hours were tweeted.
 func LoadHist(w http.ResponseWriter, req *http.Request) {
+	// Retrieve keys from env file
+	keys := setKeys()
+
 	// Setup the Anaconda Library for the Twitter API with keys and tokens
-	anaconda.SetConsumerKey(constants.ConsumerKey)
-	anaconda.SetConsumerSecret(constants.ConsumerSecret)
-	api := anaconda.NewTwitterApi(constants.AccessToken, constants.AccessTokenSecret)
+	anaconda.SetConsumerKey(keys.ConsumerKey)
+	anaconda.SetConsumerSecret(keys.ConsumerSecret)
+	api := anaconda.NewTwitterApi(keys.AccessToken, keys.AccessTokenSecret)
 
 	// Retrieve the current path and slice it to retrieve the twitter username to search for
 	path := req.URL.Path[1:]
@@ -117,4 +123,20 @@ func createQueries(user anaconda.User) (urlVals url.Values) {
 // Used to store the JSON hash with the root node of "tweets"
 type twitterHistogram struct {
 	TweetsTimeMap map[int]int `json:"tweets"`
+}
+
+func setKeys() (keys constants.TwitterKeys) {
+	keys = constants.TwitterKeys{}
+
+	err := godotenv.Load("keys.env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	keys.AccessToken = os.Getenv("ACCESS_TOKEN")
+	keys.AccessTokenSecret = os.Getenv("ACCESS_TOKEN_SECRET")
+	keys.ConsumerKey = os.Getenv("CONSUMER_KEY")
+	keys.ConsumerSecret = os.Getenv("CONSUMER_SECRET")
+
+	return
 }
